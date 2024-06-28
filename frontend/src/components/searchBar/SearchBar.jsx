@@ -1,12 +1,11 @@
-import "./SearchBar.scss"
-
+import "./searchBar.scss"
 import { useState } from "react";
 
 const types = ["buy", "rent"];
 
 export default function SearchBar() {
   const [query, setQuery] = useState({
-    type: "buy",
+    type: "rent",
     location: "",
     minPrice: 0,
     maxPrice: 0,
