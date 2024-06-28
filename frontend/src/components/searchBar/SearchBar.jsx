@@ -5,7 +5,7 @@ const types = ["buy", "rent"];
 
 export default function SearchBar() {
   const [query, setQuery] = useState({
-    type: "rent",
+    type: "buy",
     location: "",
     minPrice: 0,
     maxPrice: 0,
