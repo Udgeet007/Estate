@@ -1,9 +1,7 @@
-// import Slider from "../../components/slider/Slider";
-import Slider from "../../components/slider/Slider";
-import { singlePostData } from "../../libraries/dummydata";
 import "./singlePage.scss";
-import { userData } from "../../libraries/dummydata";
+import Slider from "../../components/slider/Slider";
 import Map from "../../components/map/Map";
+import { singlePostData, userData } from "../../libraries/dummydata";
 
 function SinglePage() {
   return (
@@ -38,7 +36,7 @@ function SinglePage() {
               <img src="/utility.png" alt="" />
               <div className="featureText">
                 <span>Utilities</span>
-                <p>Renter is responsibility</p>
+                <p>Renter is responsible</p>
               </div>
             </div>
             <div className="feature">
@@ -51,15 +49,16 @@ function SinglePage() {
             <div className="feature">
               <img src="/fee.png" alt="" />
               <div className="featureText">
-                <span>Property fees</span>
+                <span>Property Fees</span>
                 <p>Must have 3x the rent in total household income</p>
               </div>
             </div>
           </div>
-          <p className="title">
+          <p className="title">Sizes</p>
+          <div className="sizes">
             <div className="size">
               <img src="/size.png" alt="" />
-              <span>80sqft</span>
+              <span>80 sqft</span>
             </div>
             <div className="size">
               <img src="/bed.png" alt="" />
@@ -69,9 +68,9 @@ function SinglePage() {
               <img src="/bath.png" alt="" />
               <span>1 bathroom</span>
             </div>
-          </p>
-          <div className="sizes"></div>
-          <p className="title">
+          </div>
+          <p className="title">Nearby Places</p>
+          <div className="listHorizontal">
             <div className="feature">
               <img src="/school.png" alt="" />
               <div className="featureText">
@@ -86,13 +85,6 @@ function SinglePage() {
                 <p>100m away</p>
               </div>
             </div>
-            {/* <div className="feature">
-              <img src="/fee.png" alt="" />
-              <div className="featureText">
-                <span>Bus Stop</span>
-                <p>100m away</p>
-              </div>
-            </div> */}
             <div className="feature">
               <img src="/fee.png" alt="" />
               <div className="featureText">
@@ -100,8 +92,7 @@ function SinglePage() {
                 <p>200m away</p>
               </div>
             </div>
-          </p>
-          <div className="listHorizontal"></div>
+          </div>
           <p className="title">Location</p>
           <div className="mapContainer">
             <Map items={[singlePostData]} />
@@ -113,7 +104,7 @@ function SinglePage() {
             </button>
             <button>
               <img src="/save.png" alt="" />
-              Svae the Place
+              Save the Place
             </button>
           </div>
         </div>
