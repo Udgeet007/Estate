@@ -1,11 +1,16 @@
-import express from "express"
+import express from "express";
+import authRoute from "./routes/post.route.js"
+import postRoute from "./routes/post.route.js"
+
 
 const app = express();
 
-app.use("/api/test", (req,res) => {
-  res.send("Its Works!")
-})
+app.use(express.json());
 
-app.listen(8800,()=>{
+app.use("/api/posts", postRoute);
+app.use("/api/auth", authRoute);
+
+
+app.listen(8800, () => {
   console.log("Server is Running!");
-})
+});
