@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import prisma from "../lib/prisma.js";
 
 export const register = async (req, res) => {
@@ -25,34 +26,54 @@ export const register = async (req, res) => {
   }
 };
 
-export const login = async(req, res) => {
+export const login = async (req, res) => {
   //db operations
-  const {username, password} = req.body;
+  const { username, password } = req.body;
 
   try {
-    
-   //CHECK IF THE USER EXIST
-   const user = await prisma.user.findUnique({
-    where:{username}
-   })
+    //CHECK IF THE USER EXIST
+    const user = await prisma.user.findUnique({
+      where: { username },
+    });
 
-   if(!user) return res.status(404).json({messgae:'Invalid Credentials!'});
+    if (!user) return res.status(404).json({ messgae: "Invalid Credentials!" });
 
-  //CHECK IF THE PASSWORD IS CORRECT
+    //CHECK IF THE PASSWORD IS CORRECT
 
-  const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, user.password);
 
-  if(!isPasswordValid) return res.status(401).json({messgae: "Invalid Credentials! "});
+    if (!isPasswordValid)
+      return res.status(401).json({ messgae: "Invalid Credentials! " });
 
-  //GENERATE COOKIE TOKEN AND SEND TO THE USER 
+    //GENERATE COOKIE TOKEN AND SEND TO THE USER
+    // res.setHeader("Set-Cookie", "test=" + "myValue").json("success")
+    const age = 1000 * 60 * 60 * 24 * 7;
 
-  res.setHeader("Set-Cookie", "test=" + "myValue")
-  }catch(err){
-    console.log(err)
-    res.status(500).json({messgae:"Failed to login!"})
+    const token = jwt.sign(
+      {
+        id: user.id,
+      },
+      process.env.JWT_SECRET_KEY,
+      { expiresIn: age }
+    );
+
+    const { password: userPassword, ...userInfo } = user;
+
+    res
+      .cookie("token", token, {
+        httpOnly: true,
+        // secure:true
+        maxAge: age,
+      })
+      .status(200)
+      .json({ messgae: "Login Successful" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ messgae: "Failed to login!" });
   }
 };
 
 export const logout = (req, res) => {
   //db operations
+  res.clearCookie("token").status(200).json({ messgae: "Logout Successfull!" });
 };
