@@ -1,5 +1,5 @@
 import express from "express";
-import authRoute from "./routes/post.route.js"
+import authRoute from "./routes/auth.route.js"
 import postRoute from "./routes/post.route.js"
 
 
