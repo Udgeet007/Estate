@@ -3,17 +3,18 @@ import Chat from "../../components/chat/Chat";
 import List from "../../components/list/List";
 import apiRequest from "../../libraries/apiRequest";
 import "./profilePage.scss";
-import { useContext } from "react";
+import { useContext,  } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 function ProfilePage() {
-  const { updateUser, currentUser} = useContext(AuthContext);
+  const { updateUser, currentUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
+
   const handleLogout = async () => {
     try {
       await apiRequest.post("/auth/logout");
-      updateUser(null)
+      updateUser(null);
       navigate("/");
     } catch (err) {
       console.log(err);
@@ -30,10 +31,7 @@ function ProfilePage() {
           <div className="info">
             <span>
               Avatar:
-              <img
-                src={currentUser.avatar || "/noavatar.jpg"}
-                alt=""
-              />
+              <img src={currentUser.avatar || "noavatar.jpg"} alt="" />
             </span>
             <span>
               Username: <b>{currentUser.username}</b>
@@ -60,7 +58,7 @@ function ProfilePage() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 export default ProfilePage;
