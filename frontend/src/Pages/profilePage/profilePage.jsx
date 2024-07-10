@@ -1,13 +1,14 @@
-import { Link, useNavigate } from "react-router-dom";
 import Chat from "../../components/chat/Chat";
 import List from "../../components/list/List";
-import apiRequest from "../../libraries/apiRequest";
 import "./profilePage.scss";
-import { useContext } from "react";
+import apiRequest from "../../libraries/apiRequest";
+import { Await, Link, useLoaderData, useNavigate } from "react-router-dom";
+import { Suspense, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import 
 
 function ProfilePage() {
+  const data = useLoaderData();
+
   const { updateUser, currentUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -47,19 +48,40 @@ function ProfilePage() {
           <div className="title">
             <h1>My List</h1>
             <Link to="/add">
-             <button>Create New Post</button>
+              <button>Create New Post</button>
             </Link>
           </div>
-          <List />
+          <Suspense fallback={<p>Loading...</p>}>
+            <Await
+              resolve={data.postResponse}
+              errorElement={<p>Error loading posts!</p>}
+            >
+              {(postResponse) => <List posts={postResponse.data.userPosts} />}
+            </Await>
+          </Suspense>
           <div className="title">
             <h1>Saved List</h1>
           </div>
-          <List />
+          <Suspense fallback={<p>Loading...</p>}>
+            <Await
+              resolve={data.postResponse}
+              errorElement={<p>Error loading posts!</p>}
+            >
+              {(postResponse) => <List posts={postResponse.data.savedPosts} />}
+            </Await>
+          </Suspense>
         </div>
       </div>
       <div className="chatContainer">
         <div className="wrapper">
-          <Chat />
+          <Suspense fallback={<p>Loading...</p>}>
+            <Await
+              resolve={data.chatResponse}
+              errorElement={<p>Error loading chats!</p>}
+            >
+              {(chatResponse) => <Chat chats={chatResponse.data}/>}
+            </Await>
+          </Suspense>
         </div>
       </div>
     </div>
