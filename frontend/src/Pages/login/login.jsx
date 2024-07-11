@@ -7,6 +7,7 @@ import { AuthContext } from "../../context/AuthContext";
 function Login() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
   const { updateUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
