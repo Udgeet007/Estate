@@ -1,10 +1,10 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import "./chat.scss";
 import { AuthContext } from "../../context/AuthContext";
-import apiRequest from "../../lib/apiRequest";
+import apiRequest from "../../libraries/apiRequest";
 import { format } from "timeago.js";
 import { SocketContext } from "../../context/SocketContext";
-// import { useNotificationStore } from "../../lib/notificationStore";
+import { useNotificationStore } from "../../lib/notificationStore";
 
 function Chat({ chats }) {
   const [chat, setChat] = useState(null);
@@ -13,7 +13,7 @@ function Chat({ chats }) {
 
   const messageEndRef = useRef();
 
-  // const decrease = useNotificationStore((state) => state.decrease);
+  const decrease = useNotificationStore((state) => state.decrease);
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -75,6 +75,9 @@ function Chat({ chats }) {
 
   return (
     <div className="chat">
+      <button onClick={testSocket}>
+        
+      </button>
       <div className="messages">
         <h1>Messages</h1>
         {chats?.map((c) => (
