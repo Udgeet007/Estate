@@ -4,7 +4,7 @@ import { AuthContext } from "../../context/AuthContext";
 import apiRequest from "../../libraries/apiRequest";
 import { format } from "timeago.js";
 import { SocketContext } from "../../context/SocketContext";
-import { useNotificationStore } from "../../lib/notificationStore";
+import { useNotificationStore } from "../../libraries/notificationStore";
 
 function Chat({ chats }) {
   const [chat, setChat] = useState(null);
